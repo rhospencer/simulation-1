@@ -27,6 +27,7 @@ export default class Dashboard extends Component {
                         price={el.price}
                         img={el.img}
                         deleteItem={this.deleteItem}
+                        getCurrentItem={this.props.getCurrentItem}
                     />
         })
         return(

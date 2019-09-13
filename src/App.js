@@ -14,6 +14,7 @@ class App extends Component {
       currentItem: []
     }
     this.getInventory = this.getInventory.bind(this)
+    this.getCurrentItem = this.getCurrentItem.bind(this)
   }
 
   componentDidMount() {
@@ -26,6 +27,11 @@ class App extends Component {
     })
   }
 
+  getCurrentItem(product) {
+    this.setState({currentItem: product})
+    
+  }
+
 
   render() {
     return (
@@ -33,7 +39,7 @@ class App extends Component {
         <Header />
         <div className="main-body">
           <div className="dashboard-holder">
-            <Dashboard inventory={this.state.inventory} getInventory={this.getInventory}/>
+            <Dashboard inventory={this.state.inventory} getInventory={this.getInventory} getCurrentItem={this.getCurrentItem}/>
           </div>
           <div className="form-holder">
             <Form getInventory={this.getInventory} currentItem={this.state.currentItem}/>

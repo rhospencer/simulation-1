@@ -9,17 +9,24 @@ export default class Form extends Component {
             id: null,
             name: '',
             price: '',
-            img: ''
+            img: '', 
+            toggleEdit: false
         }
     }
 
-    componentDidUpdate(prevProps) {
-        if (this.props.currentItem !== prevProps.id) {
-            
-        }
-
+    componentDidUpdate = (prevProps) => {
+        console.log(prevProps)
+        console.log(this.props.currentItem.id)
+        if (this.props.currentItem != prevProps.id) {
+            // this.setState({
+            //     id: this.props.currentItem.id,
+            //     name: this.props.currentItem.name,
+            //     price: this.props.currentItem.price,
+            //     img: this.props.currentItem.img,
+            //     toggleEdit: !this.state.toggleEdit
+            // })
+        } 
     }
-
     handleImgChange(e) {
         this.setState({img: e.target.value})
     }
@@ -60,7 +67,11 @@ export default class Form extends Component {
                 <input onChange={(e) => this.handlePriceChange(e)} value={this.state.price} type="text"/>
                 <div className="button-holder">
                     <button onClick={() => this.cancelInput()}>Cancel</button>
-                    <button onClick={() => this.addProduct()}>Add</button>
+                    {!this.state.toggleEdit ? 
+                    <button onClick={() => this.addProduct()}>Add to Inventory</button>
+                    :
+                    <button>Save Changes</button>
+                }
                 </div>
             </div>
         )

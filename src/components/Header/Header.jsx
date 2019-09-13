@@ -1,14 +1,7 @@
-import React, {Component} from 'react'
+import React from 'react'
 import Logo from '../../assets/logo.png'
 
-export default class Header extends Component {
-    constructor() {
-        super()
-
-        this.state = {}
-    }
-
-    render() {
+export default function Header() {
         return(
             <div>
                 <header>
@@ -18,4 +11,3 @@ export default class Header extends Component {
             </div>
         )
     }
-}
