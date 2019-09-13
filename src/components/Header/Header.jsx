@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import Logo from '../../assets/logo.png'
 
 export default class Header extends Component {
     constructor() {
@@ -10,7 +11,10 @@ export default class Header extends Component {
     render() {
         return(
             <div>
-                Header
+                <header>
+                    <img src={Logo} alt="Shelfie Logo"/>
+                    <h1>Shelfie</h1>
+                </header>
             </div>
         )
     }

@@ -1,18 +1,27 @@
 import React, {Component} from 'react'
+import axios from 'axios'
 
 export default class Form extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
 
         this.state = {
-            urlText: '',
+            id: null,
             name: '',
-            price: ''
+            price: '',
+            img: ''
         }
     }
 
-    handleUrlTextChange(e) {
-        this.setState({urlText: e.target.value})
+    componentDidUpdate(prevProps) {
+        if (this.props.currentItem !== prevProps.id) {
+            
+        }
+
+    }
+
+    handleImgChange(e) {
+        this.setState({img: e.target.value})
     }
 
     handleNameChange(e) {
@@ -20,18 +29,39 @@ export default class Form extends Component {
     }
 
     handlePriceChange(e) {
-        this.setState({name: e.target.value})
+        this.setState({price: e.target.value})
+    }
+
+    cancelInput() {
+        this.setState({
+            name: '',
+            price: '',
+            img: ''
+        })
+    }
+
+    addProduct() {
+        axios.post('/api/product', this.state).then(res => {
+            console.log('test')
+            this.props.getInventory()
+        })
+        this.cancelInput()
     }
 
     render() {
         return(
-            <div>
-                Form
-                <input type="text"/>
-                <input type="text"/>
-                <input type="text"/>
-                <button>Cancel</button>
-                <button>Add</button>
+            <div className="form">
+                
+                <h3>Image URL: </h3>
+                <input onChange={(e) => this.handleImgChange(e)}  value={this.state.img} type="text"/>
+                <h3>Product Name: </h3>
+                <input onChange={(e) => this.handleNameChange(e)} value={this.state.name} type="text"/>
+                <h3>Price: </h3>
+                <input onChange={(e) => this.handlePriceChange(e)} value={this.state.price} type="text"/>
+                <div className="button-holder">
+                    <button onClick={() => this.cancelInput()}>Cancel</button>
+                    <button onClick={() => this.addProduct()}>Add</button>
+                </div>
             </div>
         )
     }

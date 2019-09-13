@@ -1,16 +1,24 @@
 import React, {Component} from 'react'
 
 export default class Product extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
 
         this.state = {}
     }
 
     render() {
         return(
-            <div>
-                Product
+            <div className="product">
+                <div className="image-holder">
+                    {this.props.img}
+                </div>
+                <div className="info-holder">
+                {this.props.name} <br/>
+                {this.props.price} 
+                <button onClick={() => this.props.deleteItem(this.props.id)}>Delete</button>
+                <button>Edit</button>
+                </div>
             </div>
         )
     }

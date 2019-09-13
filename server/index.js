@@ -10,6 +10,11 @@ app.use(express.json())
 
 // ENDPOINTS
 
+app.get('/api/inventory', ctrl.getItems)
+app.post('/api/product', ctrl.addItem)
+app.delete('/api/product/:id', ctrl.deleteItem)
+
+
 
 
 massive(CONNECTION_STRING).then(db => {
