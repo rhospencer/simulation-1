@@ -14,19 +14,27 @@ export default class Form extends Component {
         }
     }
 
-    componentDidUpdate = (prevProps) => {
-        console.log(prevProps)
-        console.log(this.props.currentItem.id)
-        if (this.props.currentItem != prevProps.id) {
-            // this.setState({
-            //     id: this.props.currentItem.id,
-            //     name: this.props.currentItem.name,
-            //     price: this.props.currentItem.price,
-            //     img: this.props.currentItem.img,
-            //     toggleEdit: !this.state.toggleEdit
-            // })
-        } 
+    // componentDidUpdate = (prevProps) => {
+    //     if (this.props.currentItem !== prevProps.currentItem) {
+    //         this.setState({
+    //             id: this.props.currentItem.id,
+    //             name: this.props.currentItem.name,
+    //             price: this.props.currentItem.price,
+    //             img: this.props.currentItem.img,
+    //             toggleEdit: !this.state.toggleEdit
+    //         })
+    //     } 
+    // }
+
+    editItem = (id) => {
+        axios.put(`/api/product/${+id}`, this.state).then(res => {
+            console.log('test')
+            this.props.getInventory()
+            this.setState({toggleEdit: !this.state.toggleEdit})
+            this.cancelInput()
+        })
     }
+
     handleImgChange(e) {
         this.setState({img: e.target.value})
     }
@@ -49,7 +57,6 @@ export default class Form extends Component {
 
     addProduct() {
         axios.post('/api/product', this.state).then(res => {
-            console.log('test')
             this.props.getInventory()
         })
         this.cancelInput()
@@ -70,7 +77,7 @@ export default class Form extends Component {
                     {!this.state.toggleEdit ? 
                     <button onClick={() => this.addProduct()}>Add to Inventory</button>
                     :
-                    <button>Save Changes</button>
+                    <button onClick={() => this.editItem(this.state.id)}>Save Changes</button>
                 }
                 </div>
             </div>

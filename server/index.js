@@ -14,6 +14,7 @@ app.get('/api/inventory', ctrl.getItems)
 app.post('/api/product', ctrl.addItem)
 app.delete('/api/product/:id', ctrl.deleteItem)
 app.put('/api/product/:id', ctrl.editItem)
+app.get('/api/inventory/:id', ctrl.getItem)
 
 
 

@@ -39,5 +39,15 @@ module.exports = {
         .catch(err => {
             console.log(err)
         })
+    },
+    getItem: (req, res) => {
+        const db = req.app.get('db')
+        const {id} = req.params
+        db.get_item([id]).then(result => {
+            res.status(200).send(result)
+        })
+        .catch(err => {
+            console.log(err)
+        })
     }
 }
