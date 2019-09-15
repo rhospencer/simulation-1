@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 import Product from '../Product/Product'
 import axios from 'axios'
+import {withRouter} from 'react-router-dom'
 
-export default class Dashboard extends Component {
+class Dashboard extends Component {
     constructor(props) {
         super(props)
 
@@ -12,13 +13,12 @@ export default class Dashboard extends Component {
     }
 
     componentDidMount() {
-        console.log(this.state.inventory)
         this.getInventory()
       }
 
     deleteItem = (id) => {
         axios.delete(`/api/product/${+id}`).then(res => {
-            this.state.getInventory()
+            this.getInventory()
         })
     }
 
@@ -42,9 +42,11 @@ export default class Dashboard extends Component {
                     />
         })
         return(
-            <div>
+            <div className="holder">
                 {inventoryList}
             </div>
         )
     }
 }
+
+export default withRouter(Dashboard)

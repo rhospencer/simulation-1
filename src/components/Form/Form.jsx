@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import axios from 'axios'
+import {Link, withRouter} from 'react-router-dom'
 
-export default class Form extends Component {
+class Form extends Component {
     constructor(props) {
         super(props)
 
@@ -26,10 +27,38 @@ export default class Form extends Component {
     //     } 
     // }
 
+
+
+
+    componentDidMount() {
+        this.getItem(this.props.match.params.id)
+        if (this.state.toggleEdit === true) {
+            this.getItem(this.state.id)
+        }
+    }
+
+    componentDidUpdate = (prevProps) => {
+        // this.cancelInput()
+    }
+
+    getItem(id) {
+        
+        axios.get(`/api/inventory/${+id}`).then(res => {
+            console.log(res.data)
+          this.setState({
+              id: res.data[0].id,
+              name: res.data[0].name,
+              price: res.data[0].price,
+              img: res.data[0].img,
+              toggleEdit: !this.state.toggleEdit
+          })
+        })
+      }
+
     editItem = (id) => {
         axios.put(`/api/product/${+id}`, this.state).then(res => {
             console.log('test')
-            this.props.getInventory()
+            // this.props.getInventory()
             this.setState({toggleEdit: !this.state.toggleEdit})
             this.cancelInput()
         })
@@ -57,12 +86,11 @@ export default class Form extends Component {
 
     addProduct() {
         axios.post('/api/product', this.state).then(res => {
-            this.props.getInventory()
         })
         this.cancelInput()
     }
 
-    render() {
+    render(props) {
         return(
             <div className="form">
                 
@@ -73,14 +101,17 @@ export default class Form extends Component {
                 <h3>Price: </h3>
                 <input onChange={(e) => this.handlePriceChange(e)} value={this.state.price} type="text"/>
                 <div className="button-holder">
-                    <button onClick={() => this.cancelInput()}>Cancel</button>
+                <Link to="/" className="link"> <button>Cancel</button></Link>
                     {!this.state.toggleEdit ? 
-                    <button onClick={() => this.addProduct()}>Add to Inventory</button>
+                    <Link to="/" className="link"><button onClick={() => this.addProduct()}>Add to Inventory</button></Link>
                     :
-                    <button onClick={() => this.editItem(this.state.id)}>Save Changes</button>
+                    <Link to="/" className="link"><button onClick={() => this.editItem(this.state.id)}>Save Changes</button></Link>
                 }
                 </div>
             </div>
         )
     }
 }
+
+
+export default withRouter(Form)

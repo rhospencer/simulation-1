@@ -27,6 +27,12 @@ header img {
   width: 100vw;
   display: flex;
 }
+.holder{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-right: 200px;
+}
 .dashboard-holder {
   width: 60%;
   display: flex;
@@ -69,7 +75,6 @@ header img {
 .image-holder {
   width: 60%;
   height: 100%;
-  background: green;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -78,4 +83,16 @@ header img {
   width: 35%;
   height: 100%;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.product-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+.info{
+  padding-top: 20px;
 }
